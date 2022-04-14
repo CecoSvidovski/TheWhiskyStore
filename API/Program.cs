@@ -23,6 +23,19 @@ builder.Services.AddDbContext<StoreDbContext>(options =>
 });
 
 var app = builder.Build();
+using var scope = app.Services.CreateScope();
+var context = scope.ServiceProvider.GetRequiredService<StoreDbContext>();
+var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+
+try
+{
+    context.Database.Migrate();
+    DbInitializer.Initialize(context);
+}
+catch (Exception ex)
+{
+    logger.LogError(ex, "Problem migrating data");
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
