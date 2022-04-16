@@ -7,6 +7,7 @@ public class Product
     public int Id { get; set; }
 
     [Required]
+    [MaxLength(80)]
     public string? Name { get; set; }
 
     [Required]
@@ -20,10 +21,11 @@ public class Product
     [Required]
     public string? PictureUrl { get; set; }
 
-    [Required]
+    [MaxLength(60)]
     public string? Type { get; set; }
 
     [Required]
+    [MaxLength(60)]
     public string? Brand { get; set; }
 
     [Required]
