@@ -1,4 +1,5 @@
 import { Product } from "../../models/product"
+import ProductList from "./ProductList";
 
 interface Props {
   products: Product[];
@@ -7,11 +8,7 @@ interface Props {
 
 const Catalog = ({products, addProduct}: Props) => (
   <>
-    <ul>
-      {products.map(product => (
-        <li key={product.id}>{product.name} - {product.price}</li>
-      ))}
-    </ul>
+    <ProductList products={products} />
   </>
 )
 
