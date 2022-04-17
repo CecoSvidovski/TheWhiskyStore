@@ -6,7 +6,7 @@ const appTheme = createTheme({
       main: '#313132',
     },
     secondary: {
-      main: '#fbfbfd',
+      main: '#0071e3',
     },
   },
 });
