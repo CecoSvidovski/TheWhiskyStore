@@ -1,4 +1,4 @@
-import { Avatar, List, ListItem, ListItemAvatar, ListItemText } from "@mui/material";
+import { List } from "@mui/material";
 import { Product } from "../../models/product";
 import ProductCard from "./ProductCard";
 
