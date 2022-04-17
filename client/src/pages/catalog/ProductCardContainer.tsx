@@ -12,6 +12,7 @@ const ProductCardContainer = ({ product }: Props) => {
   return (
     <ProductCard>
       <CardMedia
+        sx={{backgroundSize: 'contain'}}
         component="img"
         image={product.pictureUrl}
         alt="Whisky image"
@@ -23,7 +24,7 @@ const ProductCardContainer = ({ product }: Props) => {
             {product.name}
           </Typography>
           <Typography gutterBottom variant="h6">
-            {(product.price / 100).toFixed(2) + '$'}
+            {'$' + (product.price / 100).toFixed(2)}
           </Typography>
         </Grid>
 
@@ -37,8 +38,8 @@ const ProductCardContainer = ({ product }: Props) => {
       </CardContent>
       <CardActions>
         <Grid container justifyContent='space-evenly' sx={{mb: 1}}>
-          <ProductButton variant='contained' size="small">Add to cart</ProductButton>
-          <ProductButton variant='contained' size="small">View</ProductButton>
+          <ProductButton variant='contained' size="medium">Add to cart</ProductButton>
+          <ProductButton variant='contained' size="medium">View</ProductButton>
         </Grid>
       </CardActions>
     </ProductCard>

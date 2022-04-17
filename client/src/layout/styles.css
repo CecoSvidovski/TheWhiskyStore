@@ -1,9 +1,12 @@
 html {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: '#fbfbfd';
+}
+
+.MuiToolbar-root {
+  min-height: 50px !important;
 }

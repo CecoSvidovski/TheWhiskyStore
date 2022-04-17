@@ -1,30 +1,43 @@
 import { Container, CssBaseline, ThemeProvider } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Product } from "../models/product";
 import Catalog from "../pages/catalog/Catalog";
 import Header from "./Header";
-import appTheme from "./theme";
+import { lightTheme, darkTheme } from "./theme";
 
 const App = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [darkMode, setDarkMode] = useState(false);
+  const theme = darkMode ? darkTheme : lightTheme;
+
+  const onSelectMode = (mode: string) => {
+    setDarkMode(mode === 'dark')
+    if (mode === 'dark')
+      document.body.classList.add('dark-mode')
+    else
+      document.body.classList.remove('dark-mode')
+  }
 
   useEffect(() => {
-    (async () => {
-      const res = await fetch('https://localhost:5001/api/products');
-      const data = await res.json();
-      setProducts(data);
-    })()
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => onSelectMode(e.matches ? 'dark' : 'light'));
+  
+    onSelectMode(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+  
+    return () => {
+      window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', () => {
+      });
+    }
   }, []);
 
-  const addProduct = () => { };
+  const handleThemeChange = () => {
+    setDarkMode(!darkMode);
+  }
 
   return (
     <>
-      <CssBaseline />
-      <ThemeProvider theme={appTheme}>
-        <Header />
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Header darkMode={darkMode} handleThemeChange={handleThemeChange} theme={theme} />
         <Container>
-          <Catalog products={products} addProduct={addProduct} />
+          <Catalog />
         </Container>
       </ThemeProvider>
     </>
