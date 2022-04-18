@@ -1,12 +1,13 @@
-import { Container, CssBaseline, ThemeProvider } from "@mui/material";
 import { useEffect, useState } from "react";
+import { Container, CssBaseline, ThemeProvider } from "@mui/material";
 import Catalog from "../pages/catalog/Catalog";
 import Header from "./Header";
-import { lightTheme, darkTheme } from "./theme";
+import theme from "./theme";
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);
-  const theme = darkMode ? darkTheme : lightTheme;
+  const paletteType = darkMode ? 'dark' : 'light';
+  const currTheme = theme(paletteType);
 
   const onSelectMode = (mode: string) => {
     setDarkMode(mode === 'dark')
@@ -17,25 +18,32 @@ const App = () => {
   }
 
   useEffect(() => {
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => onSelectMode(e.matches ? 'dark' : 'light'));
+    const paletteMode = localStorage.getItem('paletteMode');
+    if(!paletteMode) {
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => onSelectMode(e.matches ? 'dark' : 'light'));
   
-    onSelectMode(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
-  
-    return () => {
-      window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', () => {
-      });
+      onSelectMode(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+
+      localStorage.setItem('paletteMode', window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+    
+      return () => {
+        window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', () => {
+        });
+      }
     }
+    onSelectMode(paletteMode);
   }, []);
 
   const handleThemeChange = () => {
     setDarkMode(!darkMode);
+    localStorage.setItem('paletteMode', darkMode ? 'light' : 'dark')
   }
 
   return (
     <>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={currTheme}>
         <CssBaseline />
-        <Header darkMode={darkMode} handleThemeChange={handleThemeChange} theme={theme} />
+        <Header darkMode={darkMode} handleThemeChange={handleThemeChange} theme={currTheme} />
         <Container>
           <Catalog />
         </Container>

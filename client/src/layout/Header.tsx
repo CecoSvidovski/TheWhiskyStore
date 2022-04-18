@@ -12,24 +12,28 @@ const Header = ({ darkMode, handleThemeChange, theme }: Props) => {
 
   return (
     <AppBar
-      position='static'
+      position='sticky'
       sx={{
         mb: 4,
         boxShadow: '0px 0px 15px 2px rgba(0, 0, 0, 0.01)',
       }}
     >
       <Toolbar>
-        <Typography 
+        <Typography
           variant='h6'
-          sx={{mr: 2}}
+          sx={{ mr: 2 }}
         >
           The Whisky Store
         </Typography>
         <FormControlLabel
-          control={<DarkModeSwitch sx={{ m: 1 }} defaultChecked />}
-          label={<DarkModeIcon sx={{ mt: '5px'}}/>}
-          checked={darkMode}
-          onChange={handleThemeChange}
+          control={
+            <DarkModeSwitch
+              sx={{ m: 1 }}
+              checked={darkMode}
+              onChange={handleThemeChange}
+            />
+          }
+          label={<DarkModeIcon sx={{ mt: '5px' }} />}
         />
       </Toolbar>
     </AppBar>
