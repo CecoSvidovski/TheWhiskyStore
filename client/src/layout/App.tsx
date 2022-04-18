@@ -18,13 +18,11 @@ const App = () => {
   }
 
   useEffect(() => {
-    const paletteMode = localStorage.getItem('paletteMode');
+    const paletteMode = localStorage.getItem('theme');
     if(!paletteMode) {
       window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => onSelectMode(e.matches ? 'dark' : 'light'));
   
       onSelectMode(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
-
-      localStorage.setItem('paletteMode', window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
     
       return () => {
         window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', () => {
@@ -36,7 +34,7 @@ const App = () => {
 
   const handleThemeChange = () => {
     setDarkMode(!darkMode);
-    localStorage.setItem('paletteMode', darkMode ? 'light' : 'dark')
+    localStorage.setItem('theme', darkMode ? 'light' : 'dark')
   }
 
   return (
