@@ -1,29 +1,43 @@
-import { AppBar, FormControlLabel, Theme, Toolbar, Typography } from "@mui/material";
-import DarkModeSwitch from "./DarkModeSwitch";
+import { AppBar, Badge, Container, FormControlLabel, IconButton, List, ListItem, Theme, Toolbar, Typography, Box } from "@mui/material";
+import { ShoppingCart } from "@mui/icons-material";
 import DarkModeIcon from '@mui/icons-material/DarkMode';
+import DarkModeSwitch from "./DarkModeSwitch";
+import NavLinkList from "./NavLinkList";
+import { NavLink } from "react-router-dom";
+import { appBar, link, shoppingCartBtn, typography } from "./muiStyles";
 
 interface Props {
   darkMode: boolean;
   handleThemeChange: () => void;
-  theme: Theme;
 }
 
-const Header = ({ darkMode, handleThemeChange, theme }: Props) => {
+const Header = ({ darkMode, handleThemeChange }: Props) => {
+
+  const midLinks = [
+    { title: 'Catalog', path: '/catalog' },
+    { title: 'About', path: '/about' },
+    { title: 'Contact', path: '/contact' },
+  ];
+
+  const rightLinks = [
+    { title: 'Login', path: '/login' },
+    { title: 'Register', path: '/register' },
+  ];
 
   return (
     <AppBar
       position='sticky'
-      sx={{
-        mb: 4,
-        boxShadow: '0px 0px 15px 2px rgba(0, 0, 0, 0.01)',
-      }}
+      sx={appBar(darkMode)}
     >
       <Toolbar>
         <Typography
           variant='h6'
-          sx={{ mr: 2 }}
+          sx={{...typography, ...link}}
+          component={NavLink}
+          to='/'
+          key={'home'}
         >
-          The Whisky Store
+          THE WHISKY STORE
         </Typography>
         <FormControlLabel
           control={
@@ -35,6 +49,13 @@ const Header = ({ darkMode, handleThemeChange, theme }: Props) => {
           }
           label={<DarkModeIcon sx={{ mt: '5px' }} />}
         />
+        <NavLinkList links={midLinks} />
+        <IconButton size='large' sx={shoppingCartBtn}>
+          <Badge badgeContent={4} color='secondary'>
+            <ShoppingCart />
+          </Badge>
+        </IconButton>
+        <NavLinkList links={rightLinks} />
       </Toolbar>
     </AppBar>
   )

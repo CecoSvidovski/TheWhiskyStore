@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
+import { Route, Routes } from "react-router-dom";
 import { Container, CssBaseline, ThemeProvider } from "@mui/material";
-import Catalog from "../pages/catalog/Catalog";
-import Header from "./Header";
 import theme from "./theme";
+import Header from "./Header";
+import Home from "../pages/home/Home";
+import Catalog from "../pages/catalog/Catalog";
+import ProductDetails from "../pages/catalog/ProductDetails";
+import About from "../pages/about/About";
+import Contact from "../pages/contact/Contact";
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -19,11 +24,11 @@ const App = () => {
 
   useEffect(() => {
     const paletteMode = localStorage.getItem('theme');
-    if(!paletteMode) {
+    if (!paletteMode) {
       window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => onSelectMode(e.matches ? 'dark' : 'light'));
-  
+
       onSelectMode(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
-    
+
       return () => {
         window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', () => {
         });
@@ -41,9 +46,15 @@ const App = () => {
     <>
       <ThemeProvider theme={currTheme}>
         <CssBaseline />
-        <Header darkMode={darkMode} handleThemeChange={handleThemeChange} theme={currTheme} />
+        <Header darkMode={darkMode} handleThemeChange={handleThemeChange} />
         <Container>
-          <Catalog />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/catalog" element={<Catalog />} />
+            <Route path="/catalog/:id" element={<ProductDetails />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
         </Container>
       </ThemeProvider>
     </>
