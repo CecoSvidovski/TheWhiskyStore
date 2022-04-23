@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Button, Divider, Grid, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from "@mui/material";
-import * as productService from '../../services/productService'
+import agent from "../../api/agent";
+import { Button, Divider, Grid, Typography } from "@mui/material";
 import { Product } from "../../models/product";
 import ProductTable from "./ProductTable";
 import { productBtn } from "./muiStyles";
@@ -12,7 +12,8 @@ const ProductDetails = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    productService.getOne(id)
+    if (!id) return;
+    agent.Catalog.getOne(parseInt(id))
       .then(data => setProduct(data))
       .catch(error => console.log(error))
       .finally(() => setLoading(false));

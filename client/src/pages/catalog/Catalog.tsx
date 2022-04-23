@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import * as productService from '../../services/productService'
+import agent from "../../api/agent";
 import { Product } from "../../models/product"
 import ProductList from "./ProductList";
 
@@ -7,8 +7,8 @@ const Catalog = () => {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    productService.getAll()
-      .then(data => setProducts(data));
+    agent.Catalog.getAll()
+      .then(products => setProducts(products));
   }, []);
 
   return (
