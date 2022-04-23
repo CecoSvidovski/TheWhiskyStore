@@ -1,34 +1,44 @@
 export const appBar = (darkMode: boolean) => ({
   mb: 4,
   boxShadow: '0px 0px 15px 2px rgba(0, 0, 0, 0.01)',
-  backgroundColor: (darkMode ? '#080808' : '#1d1d1f'),
+  backgroundColor: (darkMode ? 'rgba(8, 8, 8, 0.8)' : 'rgba(0, 0, 0, 0.8)'),
+  backdropFilter: 'saturate(180%) blur(20px)',
+  color: '#d6d6d6',
 });
 
-export const typography = { 
-  mr: 2, 
-  color: 'inherit', 
-  textDecoration: 'none', 
+export const toolbar = { 
+  display: 'flex', 
+  flexDirection: 'row', 
+  justifyContent: 'space-around' 
+};
+
+export const typography = {
+  alignSelf: 'center',
+  mr: 2,
+  color: 'inherit',
+  textDecoration: 'none',
 };
 
 export const link = {
   typography: 'h6',
-  transition: '0.5s',
-  color: '#a9a9a9',
+  transition: '0.4s',
+  color: 'inherit',
   '&:hover': {
-    color: '#e0e0e0',
+    color: '#ffffff',
   },
 }
 
 export const nav = {
-  typography: 'h6',
   '&.active': {
     color: '#ffffff',
   },
 };
 
 export const shoppingCartBtn = {
-  color: '#a9a9a9',
-  transition: '0.5s',
+  color: 'inherit',
+  height: '42px',
+  alignSelf: 'center',
+  transition: '0.4s',
   '&:hover': {
     backgroundColor: 'rgba(169, 169, 169, 0.2)',
   },

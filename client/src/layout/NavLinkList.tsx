@@ -4,8 +4,8 @@ import { link, nav } from "./muiStyles";
 
 interface Props {
   links: {
-    title:string, 
-    path:string
+    title: string,
+    path: string,
   }[];
 }
 
@@ -16,7 +16,7 @@ const NavLinkList = ({ links }: Props) => (
         component={NavLink}
         to={path}
         key={title}
-        sx={{...link, ...nav}}
+        sx={{ ...link, ...nav }}
       >
         {title}
       </ListItem>
