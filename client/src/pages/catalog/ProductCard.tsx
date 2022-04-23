@@ -1,7 +1,7 @@
-import { CardMedia, CardContent, Typography, CardActions, Grid, Card } from "@mui/material";
+import { CardMedia, CardContent, Typography, CardActions, Grid, Card, Button } from "@mui/material";
 import { Product } from "../../models/product";
-import ProductButton from "./ProductButton";
-import { productCard } from "./muiStyles";
+import { productBtn, productCard } from "./muiStyles";
+import { Link } from "react-router-dom";
 
 interface Props {
   product: Product;
@@ -38,8 +38,8 @@ const ProductCard = ({ product }: Props) => {
       </CardContent>
       <CardActions>
         <Grid container justifyContent='space-evenly' sx={{mb: 1}}>
-          <ProductButton variant='contained' size="medium">Add to cart</ProductButton>
-          <ProductButton variant='contained' size="medium">View</ProductButton>
+          <Button sx={productBtn} variant='contained' size="medium">Add to cart</Button>
+          <Button component={Link} to={`/catalog/${product.id}`} sx={productBtn} variant='contained' size="medium">View</Button>
         </Grid>
       </CardActions>
     </Card>

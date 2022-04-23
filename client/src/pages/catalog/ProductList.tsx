@@ -6,18 +6,14 @@ interface Props {
   products: Product[];
 }
 
-const ProductList = ({ products }: Props) => {
-
-
-  return (
-    <Grid container spacing={3}>
-      {products.map(product => (
-        <Grid item xs={3} key={product.id}>
-          <ProductCard product={product}/>
-        </Grid>
-      ))}
-    </Grid>
-  );
-}
+const ProductList = ({ products }: Props) => (
+  <Grid container spacing={3}>
+    {products.map(product => (
+      <Grid item xs={3} key={product.id}>
+        <ProductCard product={product} />
+      </Grid>
+    ))}
+  </Grid>
+);
 
 export default ProductList;
