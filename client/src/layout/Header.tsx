@@ -4,7 +4,7 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import DarkModeSwitch from "./DarkModeSwitch";
 import NavLinkList from "./NavLinkList";
 import { NavLink } from "react-router-dom";
-import { appBar, link, shoppingCartBtn, toolbar, typography } from "./muiStyles";
+import { appBar, link, shoppingCartBtn, toolbar, typography } from "./styles/muiStyles";
 
 interface Props {
   darkMode: boolean;

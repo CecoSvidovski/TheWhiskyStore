@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Container, CssBaseline, ThemeProvider } from "@mui/material";
-import theme from "./theme";
+import theme from "./styles/muiTheme";
 import Header from "./Header";
 import Home from "../pages/home/Home";
 import Catalog from "../pages/catalog/Catalog";

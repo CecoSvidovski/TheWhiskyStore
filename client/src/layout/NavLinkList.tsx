@@ -1,6 +1,6 @@
 import { List, ListItem } from "@mui/material";
 import { NavLink } from "react-router-dom";
-import { link, nav } from "./muiStyles";
+import { link, nav } from "./styles/muiStyles";
 
 interface Props {
   links: {
