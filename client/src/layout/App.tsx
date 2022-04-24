@@ -8,6 +8,7 @@ import Catalog from "../pages/catalog/Catalog";
 import ProductDetails from "../pages/catalog/ProductDetails";
 import About from "../pages/about/About";
 import Contact from "../pages/contact/Contact";
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -45,6 +46,7 @@ const App = () => {
   return (
     <>
       <ThemeProvider theme={currTheme}>
+        <ToastContainer />
         <CssBaseline />
         <Header darkMode={darkMode} handleThemeChange={handleThemeChange} />
         <Container>
