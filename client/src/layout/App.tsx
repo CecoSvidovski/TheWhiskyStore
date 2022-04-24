@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Container, CssBaseline, ThemeProvider } from "@mui/material";
+import { ToastContainer } from "react-toastify";
 import theme from "./styles/muiTheme";
 import Header from "./Header";
 import Home from "../pages/home/Home";
@@ -8,7 +9,7 @@ import Catalog from "../pages/catalog/Catalog";
 import ProductDetails from "../pages/catalog/ProductDetails";
 import About from "../pages/about/About";
 import Contact from "../pages/contact/Contact";
-import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -46,7 +47,7 @@ const App = () => {
   return (
     <>
       <ThemeProvider theme={currTheme}>
-        <ToastContainer />
+        <ToastContainer position='bottom-right' hideProgressBar />
         <CssBaseline />
         <Header darkMode={darkMode} handleThemeChange={handleThemeChange} />
         <Container>

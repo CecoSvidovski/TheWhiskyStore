@@ -15,7 +15,7 @@ const ProductDetails = () => {
     if (!id) return;
     agent.Catalog.getOne(parseInt(id))
       .then(data => setProduct(data))
-      .catch(error => console.error(error.message, error.details))
+      .catch(error => console.error('Error', error))
       .finally(() => setLoading(false));
   }, [id]);
 
