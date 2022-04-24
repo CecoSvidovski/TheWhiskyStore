@@ -15,7 +15,7 @@ public class ErrorController : ControllerBase
     [HttpGet("bad-request")]
     public ActionResult GetBadRequest()
     {
-        return BadRequest(new ProblemDetails{Title = "This is a bad request"});
+        return BadRequest(new ProblemDetails{Title = "Bad request"});
     }
     
     [HttpGet("unauthorized")]
@@ -36,7 +36,7 @@ public class ErrorController : ControllerBase
     [HttpGet("server-error")]
     public ActionResult GetServerError()
     {
-        throw new Exception("This is a server error");
+        throw new Exception("Internal Server Error");
     }
 
     
