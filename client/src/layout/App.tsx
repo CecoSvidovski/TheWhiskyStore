@@ -11,6 +11,7 @@ import About from "../pages/about/About";
 import Contact from "../pages/contact/Contact";
 import 'react-toastify/dist/ReactToastify.css';
 import ServerError from "../errors/ServerError";
+import NotFound from "../errors/NotFound";
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -63,6 +64,7 @@ const App = () => {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/server-error" element={<ServerError />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Container>
       </ThemeProvider>

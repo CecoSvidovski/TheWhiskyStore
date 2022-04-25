@@ -60,7 +60,7 @@ const handleError = (
   error: { status: number, title: string, detail: string },
   navigate: NavigateFunction
 ) => {
-  console.error(error);
+  console.error('Error', error);
   (error.status === 500 || error.status === 503)
     && navigate('/server-error', { state: { error: error } });
 }

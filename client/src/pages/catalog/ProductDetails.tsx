@@ -5,6 +5,7 @@ import { Button, Divider, Grid, Typography } from "@mui/material";
 import { Product } from "../../models/product";
 import ProductTable from "./ProductTable";
 import { productBtn } from "./muiStyles";
+import NotFound from "../../errors/NotFound";
 
 const ProductDetails = () => {
   const { id } = useParams<{id: string}>();
@@ -21,7 +22,7 @@ const ProductDetails = () => {
   }, [id, navigate]);
 
   if (loading) return (<h3>Loading...</h3>);
-  if (!product) return (<h3>Product not found!</h3>);
+  if (!product) return <NotFound />;
 
   return (
     <Grid container spacing={6}>
