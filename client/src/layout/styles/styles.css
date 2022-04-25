@@ -19,3 +19,7 @@ body {
   height: 15px !important;
   width: 15px !important;
 }
+
+.Toastify__toast-theme--dark {
+  background: #1e1e1e !important;
+}

@@ -10,6 +10,7 @@ import ProductDetails from "../pages/catalog/ProductDetails";
 import About from "../pages/about/About";
 import Contact from "../pages/contact/Contact";
 import 'react-toastify/dist/ReactToastify.css';
+import ServerError from "../errors/ServerError";
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -47,7 +48,11 @@ const App = () => {
   return (
     <>
       <ThemeProvider theme={currTheme}>
-        <ToastContainer position='bottom-right' hideProgressBar theme='colored'/>
+        <ToastContainer 
+          position='bottom-right' 
+          hideProgressBar 
+          theme={darkMode ? 'dark' : 'light'}
+        />
         <CssBaseline />
         <Header darkMode={darkMode} handleThemeChange={handleThemeChange} />
         <Container>
@@ -57,6 +62,7 @@ const App = () => {
             <Route path="/catalog/:id" element={<ProductDetails />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/server-error" element={<ServerError />} />
           </Routes>
         </Container>
       </ThemeProvider>

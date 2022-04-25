@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
+import { NavigateFunction } from "react-router-dom";
 import { toast } from "react-toastify";
 
 axios.defaults.baseURL = 'https://localhost:5001/api/';
@@ -19,16 +20,17 @@ axios.interceptors.response.use(response => {
             .map(key => data.errors[key])
             .flat();
 
+        modelStateErrors.forEach(err => toast.warning(err));
+
         throw modelStateErrors;
       }
       toast.error(data.title);
-      break;
+      throw data;
     case 401:
       toast.error(data.title);
-      break;
+      throw data;
     case 500:
-      toast.error(data.title);
-      break;
+      throw data;
   }
 
   return Promise.reject(error.response);
@@ -54,9 +56,19 @@ const TestErrors = {
   getValidationError: () => requests.get('error/validation-error'),
 }
 
+const handleError = (
+  error: { status: number, title: string, detail: string },
+  navigate: NavigateFunction
+) => {
+  console.error(error);
+  (error.status === 500 || error.status === 503)
+    && navigate('/server-error', { state: { error: error } });
+}
+
 const agent = {
   Catalog,
   TestErrors,
+  handleError
 }
 
 export default agent;

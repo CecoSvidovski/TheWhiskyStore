@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import agent from "../../api/agent";
 import { Button, Divider, Grid, Typography } from "@mui/material";
 import { Product } from "../../models/product";
@@ -10,14 +10,15 @@ const ProductDetails = () => {
   const { id } = useParams<{id: string}>();
   const [product, setProduct] = useState<Product | null>(null)
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!id) return;
     agent.Catalog.getOne(parseInt(id))
       .then(data => setProduct(data))
-      .catch(error => console.error('Error', error))
+      .catch(error => agent.handleError(error, navigate))
       .finally(() => setLoading(false));
-  }, [id]);
+  }, [id, navigate]);
 
   if (loading) return (<h3>Loading...</h3>);
   if (!product) return (<h3>Product not found!</h3>);
