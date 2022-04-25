@@ -8,7 +8,7 @@ public class Product
 
     [Required]
     [MaxLength(80)]
-    public string? Name { get; set; }
+    public string Name { get; set; }
 
     // I chose long because that's what Stripe payment processor 
     // uses for the price information (normally should be decimal)
@@ -16,19 +16,20 @@ public class Product
     public long Price { get; set; }
 
     [Required]
-    public string? PictureUrl { get; set; }
+    public string PictureUrl { get; set; }
 
     [MaxLength(60)]
-    public string? Type { get; set; }
+    public string Type { get; set; }
 
     [Required]
     [MaxLength(60)]
-    public string? Brand { get; set; }
+    public string Brand { get; set; }
 
     [Required]
     public int QuantityInStock { get; set; }
 
     public int? Age { get; set; }
     
-    public string? Description { get; set; }
+    [Required]
+    public string Description { get; set; }
 }
