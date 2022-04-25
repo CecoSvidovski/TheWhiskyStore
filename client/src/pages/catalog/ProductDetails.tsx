@@ -6,6 +6,7 @@ import { Product } from "../../models/product";
 import ProductTable from "./ProductTable";
 import { productBtn } from "./muiStyles";
 import NotFound from "../../errors/NotFound";
+import LoadingComponent from "../../layout/LoadingComponent";
 
 const ProductDetails = () => {
   const { id } = useParams<{id: string}>();
@@ -21,7 +22,7 @@ const ProductDetails = () => {
       .finally(() => setLoading(false));
   }, [id, navigate]);
 
-  if (loading) return (<h3>Loading...</h3>);
+  if (loading) return <LoadingComponent message="Loading product..." />;
   if (!product) return <NotFound />;
 
   return (
