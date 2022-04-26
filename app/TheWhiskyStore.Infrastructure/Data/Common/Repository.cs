@@ -48,12 +48,12 @@ public abstract class Repository : IRepository
     /// All records in a table
     /// </summary>
     /// <returns>Queryable expression tree</returns>
-    public IQueryable<T> All<T>() where T : class
+    public IQueryable<T> GetAll<T>() where T : class
     {
         return DbSet<T>().AsQueryable();
     }
 
-    public IQueryable<T> All<T>(Expression<Func<T, bool>> search) where T : class
+    public IQueryable<T> GetAll<T>(Expression<Func<T, bool>> search) where T : class
     {
         return this.DbSet<T>().Where(search).AsQueryable();
     }
@@ -62,13 +62,13 @@ public abstract class Repository : IRepository
     /// The result collection won't be tracked by the context
     /// </summary>
     /// <returns>Expression tree</returns>
-    public IQueryable<T> AllReadonly<T>() where T : class
+    public IQueryable<T> GetAllReadonly<T>() where T : class
     {
         return this.DbSet<T>()
             .AsQueryable()
             .AsNoTracking();
     }
-    public IQueryable<T> AllReadonly<T>(Expression<Func<T, bool>> search) where T : class
+    public IQueryable<T> GetAllReadonly<T>(Expression<Func<T, bool>> search) where T : class
     {
         return this.DbSet<T>()
             .Where(search)
@@ -182,7 +182,7 @@ public abstract class Repository : IRepository
 
     public void DeleteRange<T>(Expression<Func<T, bool>> deleteWhereClause) where T : class
     {
-        var entities = All<T>(deleteWhereClause);
+        var entities = GetAll<T>(deleteWhereClause);
         DeleteRange(entities);
     }
 }

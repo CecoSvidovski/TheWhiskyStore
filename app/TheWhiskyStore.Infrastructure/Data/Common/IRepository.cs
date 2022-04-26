@@ -12,25 +12,25 @@ public interface IRepository : IDisposable
     /// All records in a table
     /// </summary>
     /// <returns>Queryable expression tree</returns>
-    IQueryable<T> All<T>() where T : class;
+    IQueryable<T> GetAll<T>() where T : class;
 
     /// <summary>
     /// All records in a table
     /// </summary>
     /// <returns>Queryable expression tree</returns>
-    IQueryable<T> All<T>(Expression<Func<T, bool>> search) where T : class;
+    IQueryable<T> GetAll<T>(Expression<Func<T, bool>> search) where T : class;
 
     /// <summary>
     /// The result collection won't be tracked by the context
     /// </summary>
     /// <returns>Expression tree</returns>
-    IQueryable<T> AllReadonly<T>() where T : class;
+    IQueryable<T> GetAllReadonly<T>() where T : class;
 
     /// <summary>
     /// The result collection won't be tracked by the context
     /// </summary>
     /// <returns>Expression tree</returns>
-    IQueryable<T> AllReadonly<T>(Expression<Func<T, bool>> search) where T : class;
+    IQueryable<T> GetAllReadonly<T>(Expression<Func<T, bool>> search) where T : class;
 
     /// <summary>
     /// Gets specific record from database by primary key

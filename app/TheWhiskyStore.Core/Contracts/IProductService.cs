@@ -4,8 +4,8 @@ namespace TheWhiskyStore.Core.Contracts;
 
 public interface IProductService
 {
-    Task<Product> GetOne(int id);
+    Task<Product> GetOneAsync(int id);
 
-    Task<List<Product>> GetAll();
+    Task<List<Product>> GetAllAsync();
 
 }

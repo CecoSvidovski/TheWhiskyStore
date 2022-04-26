@@ -17,12 +17,12 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<ICollection<Product>>> GetAll() => await _service.GetAll();
+    public async Task<ActionResult<ICollection<Product>>> GetAll() => await _service.GetAllAsync();
 
     [HttpGet("{id}")]
     public async Task<ActionResult<Product>> GetOne(int id)
     {
-        var product = await _service.GetOne(id);
+        var product = await _service.GetOneAsync(id);
 
         if (product == null) return NotFound();
 

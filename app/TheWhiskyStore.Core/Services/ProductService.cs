@@ -14,12 +14,12 @@ public class ProductService : IProductService
         _repository = repository;
     }
 
-    public async Task<List<Product>> GetAll()
+    public async Task<List<Product>> GetAllAsync()
     {
-        return await _repository.All<Product>().ToListAsync();
+        return await _repository.GetAll<Product>().ToListAsync();
     }
 
-    public async Task<Product> GetOne(int id)
+    public async Task<Product> GetOneAsync(int id)
     {
         return await _repository.GetByIdAsync<Product>(id);
     }
