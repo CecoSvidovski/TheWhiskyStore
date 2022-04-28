@@ -13,8 +13,8 @@ const Basket = () => {
 
   return (
     <>
-      <TableContainer component={Paper} sx={radiusShadow}>
-        <Table sx={{ minWidth: 650 }}>
+      <TableContainer component={Paper} sx={{...radiusShadow, maxHeight: '455px', minWidth: 650}}>
+        <Table>
           <TableHead>
             <TableRow>
               <TableCell>Product</TableCell>
