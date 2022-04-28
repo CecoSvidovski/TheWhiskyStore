@@ -1,8 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500;1,600&display=swap');
 
+* {
+  font-family: 'Montserrat', sans-serif !important;
+  transition: background-color 400ms cubic-bezier(.2, .1, .2, 1) 0ms;
+}
+
 html {
   font-size: 12px;
-  font-family: 'Open Sans', sans-serif;
 }
 
 body {
@@ -16,10 +20,15 @@ body {
 
 .MuiBadge-badge {
   min-width: 15px !important;
+  max-width: 22px;
   height: 15px !important;
-  width: 15px !important;
+  width: fit-content !important;
 }
 
 .Toastify__toast-theme--dark {
   background: #1e1e1e !important;
+}
+
+.MuiCircularProgress-svg {
+  color: #0071e3;
 }

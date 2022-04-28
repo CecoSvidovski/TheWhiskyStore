@@ -28,7 +28,7 @@ const ProductTable = ({ product }: Props) => (
           <TableCell>Description</TableCell>
           <TableCell>{product.description}</TableCell>
         </TableRow>
-        <TableRow>
+        <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
           <TableCell>Quantity In Stock</TableCell>
           <TableCell>{product.quantityInStock}</TableCell>
         </TableRow>

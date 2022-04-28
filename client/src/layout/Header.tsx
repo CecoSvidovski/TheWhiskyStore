@@ -3,8 +3,9 @@ import { ShoppingCart } from "@mui/icons-material";
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import DarkModeSwitch from "./DarkModeSwitch";
 import NavLinkList from "./NavLinkList";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { appBar, link, shoppingCartBtn, toolbar, typography } from "./styles/muiStyles";
+import { useStoreContext } from "../context/StoreContext";
 
 interface Props {
   darkMode: boolean;
@@ -12,6 +13,8 @@ interface Props {
 }
 
 const Header = ({ darkMode, handleThemeChange }: Props) => {
+  const {basket} = useStoreContext();
+  const basketItemCount = basket?.items.reduce((sum, item) => sum + item.quantity, 0);
 
   const leftLinks = [
     { title: 'Catalog', path: '/catalog' },
@@ -53,8 +56,8 @@ const Header = ({ darkMode, handleThemeChange }: Props) => {
           <NavLinkList links={leftLinks} />
         </Box>
         <Box sx={{ display: 'inherit' }}>
-          <IconButton size='large' sx={shoppingCartBtn}>
-            <Badge badgeContent={4} color='secondary'>
+          <IconButton component={Link} to='/basket' size='large' sx={shoppingCartBtn}>
+            <Badge badgeContent={basketItemCount} color='secondary'>
               <ShoppingCart />
             </Badge>
           </IconButton>

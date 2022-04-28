@@ -4,6 +4,8 @@ import './layout/styles/styles.css';
 import App from './layout/App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
+import { StoreProvider } from './context/StoreContext';
+import { DarkThemeProvider } from './context/DarkThemeContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -11,7 +13,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <DarkThemeProvider>
+        <StoreProvider>
+          <App />
+        </StoreProvider>
+      </DarkThemeProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

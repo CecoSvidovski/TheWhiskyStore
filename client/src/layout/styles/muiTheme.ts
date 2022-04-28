@@ -13,13 +13,6 @@ const theme = (paletteType: string) => createTheme({
       default: paletteType === 'dark' ? '#121212' : '#f5f5f7',
     },
   },
-  typography: {
-    fontFamily: [
-      'Montserrat',
-      'BlinkMacSystemFont',
-    ].join(',')
-  },
-  
 });
 
 export default theme;
