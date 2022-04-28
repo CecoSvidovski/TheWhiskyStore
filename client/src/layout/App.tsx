@@ -18,6 +18,7 @@ import { getCookie } from "../util/util";
 import agent from "../api/agent";
 import LoadingComponent from "./LoadingComponent";
 import { useDarkThemeContext } from "../context/DarkThemeContext";
+import Checkout from "../pages/checkout/Checkout";
 
 const App = () => {
   const { darkMode, paletteType, handleThemeChange } = useDarkThemeContext();
@@ -57,6 +58,7 @@ const App = () => {
             <Route path="/contact" element={<Contact />} />
             <Route path="/server-error" element={<ServerError />} />
             <Route path="/basket" element={<Basket />} />
+            <Route path="/checkout" element={<Checkout />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Container>

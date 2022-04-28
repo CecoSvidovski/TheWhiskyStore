@@ -1,6 +1,7 @@
-import { Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import { Button, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 import { useStoreContext } from "../../context/StoreContext";
-import { radiusShadow } from "../../layout/styles/muiStyles";
+import { btn, radiusShadow } from "../../layout/styles/muiStyles";
 import BasketItem from "./BasketItem";
 import BasketSummary from "./BasketSummary";
 
@@ -34,6 +35,16 @@ const Basket = () => {
         <Grid item xs={6} />
         <Grid item xs={6} >
           <BasketSummary />
+          <Button
+            component={Link}
+            to='/checkout'
+            variant='contained'
+            sx={{...btn, mt: 2}}
+            size='large'
+            fullWidth
+          >
+            Checkout
+          </Button>
         </Grid>
       </Grid>
     </>
