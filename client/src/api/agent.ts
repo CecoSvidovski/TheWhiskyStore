@@ -7,10 +7,10 @@ axios.defaults.withCredentials = true;
 
 const responseBody = (response: AxiosResponse) => response.data;
 
-const sleep = () => new Promise(resolve => setTimeout(resolve, 400));
+// const sleep = () => new Promise(resolve => setTimeout(resolve, 400));
 
 axios.interceptors.response.use(async response => {
-  await sleep();
+  // await sleep();
   return response;
 }, (error: AxiosError) => {
   const data = error.response!.data;
@@ -41,15 +41,16 @@ axios.interceptors.response.use(async response => {
 })
 
 const requests = {
-  get: (url: string) => axios.get(url).then(responseBody),
+  get: (url: string, params?: URLSearchParams) => axios.get(url, {params}).then(responseBody),
   post: (url: string, body: {}) => axios.post(url, body).then(responseBody),
   put: (url: string, body: {}) => axios.put(url, body).then(responseBody),
   delete: (url: string) => axios.delete(url).then(responseBody),
 };
 
 const Catalog = {
-  getAll: () => requests.get('products'),
-  getOne: (id: number) => requests.get(`products/${id}`)
+  getAll: (params: URLSearchParams) => requests.get('products', params),
+  getOne: (id: number) => requests.get(`products/${id}`),
+  fetchFilters: () => requests.get(`products/filters`),
 };
 
 const TestErrors = {

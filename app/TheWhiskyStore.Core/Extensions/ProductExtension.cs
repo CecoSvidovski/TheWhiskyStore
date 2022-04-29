@@ -13,13 +13,7 @@ public static class ProductExtension
             "price" => query.OrderBy(p => p.Price),
             "priceDesc" => query.OrderByDescending(p => p.Price),
             "name" => query.OrderBy(p => p.Name),
-            "nameDesc" => query.OrderByDescending(p => p.Name),
-            "type" => query.OrderBy(p => p.Type),
-            "typeDesc" => query.OrderByDescending(p => p.Type),
-            "brand" => query.OrderBy(p => p.Brand),
-            "brandDesc" => query.OrderByDescending(p => p.Brand),
-            "age" => query.OrderBy(p => p.Age),
-            "ageDesc" => query.OrderByDescending(p => p.Age),
+            "none" => query,
             _ => query,
         };
 
