@@ -3,23 +3,26 @@ import ReactDOM from 'react-dom/client';
 import './layout/styles/styles.css';
 import App from './layout/App';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
 import { DarkThemeProvider } from './context/DarkThemeContext';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
+import { createBrowserHistory } from 'history';
+import CustomRouter from './components/CustomRouter';
+
+export const history = createBrowserHistory();
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <CustomRouter history={history}>
       <DarkThemeProvider>
         <Provider store={store}>
           <App />
         </Provider>
       </DarkThemeProvider>
-    </BrowserRouter>
+    </CustomRouter>
   </React.StrictMode>
 );
 

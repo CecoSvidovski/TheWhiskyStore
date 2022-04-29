@@ -1,13 +1,14 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { NavigateFunction } from "react-router-dom";
 import { toast } from "react-toastify";
+import { history } from "..";
 
 axios.defaults.baseURL = 'http://localhost:5000/api/';
 axios.defaults.withCredentials = true;
 
 const responseBody = (response: AxiosResponse) => response.data;
 
-const sleep = () => new Promise(resolve => setTimeout(resolve, 200));
+const sleep = () => new Promise(resolve => setTimeout(resolve, 400));
 
 axios.interceptors.response.use(async response => {
   await sleep();
@@ -34,7 +35,7 @@ axios.interceptors.response.use(async response => {
       toast.error(data.title);
       throw data;
     case 500:
-      throw data;
+      history.push('/server-error', {error: data});
   }
 
   return Promise.reject(error.response);
@@ -48,7 +49,7 @@ const requests = {
 };
 
 const Catalog = {
-  getAll: () => requests.get('products'),
+  getAll: () => requests.get('error/server-error'),
   getOne: (id: number) => requests.get(`products/${id}`)
 };
 
