@@ -37,6 +37,7 @@ namespace TheWhiskyStore.Core.Services
 
         public async Task<bool> AddItemAsync(Basket basket, int productId, int quantity)
         {
+            if (quantity <= 0) return false;
             var product = await _repository.GetByIdAsync<Product>(productId);
             if (product == null) return false;
 
@@ -53,12 +54,11 @@ namespace TheWhiskyStore.Core.Services
 
         public async Task<bool> RemoveItemAsync(Basket basket, int productId, int quantity)
         {
+            if (quantity <= 0) return false;
             var item = basket.Items.FirstOrDefault(item => item.ProductId == productId);
-
             if (item == null) return true;
 
             if (item.Quantity > quantity) item.Quantity -= quantity;
-
             else basket.Items.Remove(item);
 
             return await _repository.SaveChangesAsync() > 0;
