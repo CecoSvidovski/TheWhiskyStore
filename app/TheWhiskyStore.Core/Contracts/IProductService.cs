@@ -6,6 +6,6 @@ public interface IProductService
 {
     Task<Product> GetOneAsync(int id);
 
-    Task<List<Product>> GetAllAsync();
+    Task<List<Product>> GetAllAsync(string orderBy, string search);
 
 }

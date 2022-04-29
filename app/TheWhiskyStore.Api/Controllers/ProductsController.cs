@@ -17,7 +17,10 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<ICollection<Product>>> GetAll() => await _service.GetAllAsync();
+    public async Task<ActionResult<ICollection<Product>>> GetAll(string orderBy, string search)
+    {
+        return await _service.GetAllAsync(orderBy, search);
+    }
 
     [HttpGet("{id}")]
     public async Task<ActionResult<Product>> GetOne(int id)
