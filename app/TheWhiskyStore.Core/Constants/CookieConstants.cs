@@ -1,7 +1,6 @@
-﻿namespace TheWhiskyStore.Core.Constants
+﻿namespace TheWhiskyStore.Core.Constants;
+
+public class CookieConstants
 {
-    public class CookieConstants
-    {
-        public const string BuyerId = "buyerId";
-    }
+    public const string BuyerId = "buyerId";
 }
