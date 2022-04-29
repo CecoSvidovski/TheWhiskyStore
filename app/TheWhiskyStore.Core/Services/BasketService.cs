@@ -25,7 +25,7 @@ namespace TheWhiskyStore.Core.Services
             return basket;
         }
 
-        public async Task<Basket?> GetBasketAsync(string buyerId)
+        public async Task<Basket> GetBasketAsync(string buyerId)
         {
             var basket = await _repository.GetAll<Basket>()
                 .Include(x => x.Items)
@@ -56,7 +56,7 @@ namespace TheWhiskyStore.Core.Services
         {
             if (quantity <= 0) return false;
             var item = basket.Items.FirstOrDefault(item => item.ProductId == productId);
-            if (item == null) return true;
+            if (item == null) return false;
 
             if (item.Quantity > quantity) item.Quantity -= quantity;
             else basket.Items.Remove(item);
