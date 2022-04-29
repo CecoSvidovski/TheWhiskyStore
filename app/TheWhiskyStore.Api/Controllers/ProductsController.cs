@@ -2,6 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 
 using TheWhiskyStore.Infrastructure.Data.Models;
 using TheWhiskyStore.Core.Contracts;
+using TheWhiskyStore.Core.RequestHelpers;
+using System.Text.Json;
+using TheWhiskyStore.Api.Extensions;
 
 namespace TheWhiskyStore.Api.Controllers;
 
@@ -17,14 +20,13 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<ICollection<Product>>> GetAll(
-        string orderBy,
-        string search,
-        string brands,
-        string types,
-        string ages)
+    public async Task<ActionResult<ICollection<Product>>> GetAll([FromQuery] ProductParams productParams)
     {
-        return await _service.GetAllAsync(orderBy, search, brands, types, ages);
+        var products = await _service.GetAllAsync(productParams);
+
+        Response.AddPaginationHeader(products.MetaData);
+
+        return products;
     }
 
     [HttpGet("{id}")]
@@ -35,5 +37,13 @@ public class ProductsController : ControllerBase
         if (product == null) return NotFound();
 
         return product;
+    }
+
+    [HttpGet("filters")]
+    public async Task<IActionResult> GetFilters()
+    {
+        var filters = await _service.GetFiltersAsync();
+
+        return Ok(filters);
     }
 }
