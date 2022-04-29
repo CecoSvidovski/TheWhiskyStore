@@ -1,5 +1,4 @@
-﻿using System.Linq.Expressions;
-using TheWhiskyStore.Infrastructure.Data.Models;
+﻿using TheWhiskyStore.Infrastructure.Data.Models;
 
 namespace TheWhiskyStore.Core.Extensions
 {
@@ -34,6 +33,28 @@ namespace TheWhiskyStore.Core.Extensions
             var lowerCaseSearchTerm = search.Trim().ToLower();
 
             return query.Where(p => p.Name.ToLower().Contains(lowerCaseSearchTerm));
+        }
+
+        public static IQueryable<Product> Filter(this IQueryable<Product> query, string brands, string types, string ages)
+        {
+            var brandList = new List<string>();
+            var typeList = new List<string>();
+            var ageList = new List<string>();
+
+            if(!string.IsNullOrWhiteSpace(brands))
+                brandList.AddRange(brands.ToLower().Split('\u002C').ToList());
+
+            if (!string.IsNullOrWhiteSpace(types))
+                typeList.AddRange(types.ToLower().Split('\u002C').ToList());
+
+            if (!string.IsNullOrWhiteSpace(ages))
+                ageList.AddRange(ages.ToLower().Split('\u002C').ToList());
+
+            query = query.Where(p => brandList.Count == 0 || brandList.Contains(p.Brand.ToLower()));
+            query = query.Where(p => typeList.Count == 0 || typeList.Contains(p.Type.ToLower()));
+            query = query.Where(p => ageList.Count == 0 || ageList.Contains(p.Age.ToString().ToLower()));
+
+            return query;
         }
     }
 }

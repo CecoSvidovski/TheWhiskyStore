@@ -16,11 +16,17 @@ public class ProductService : IProductService
         _repository = repository;
     }
 
-    public async Task<List<Product>> GetAllAsync(string orderBy, string search)
+    public async Task<List<Product>> GetAllAsync(
+        string orderBy, 
+        string search, 
+        string brands, 
+        string types, 
+        string ages)
     {
         return await _repository.GetAll<Product>()
             .Sort(orderBy)
             .Search(search)
+            .Filter(brands, types, ages)
             .ToListAsync();
     }
 
