@@ -1,5 +1,4 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { NavigateFunction } from "react-router-dom";
 import { toast } from "react-toastify";
 import { history } from "..";
 
@@ -49,7 +48,7 @@ const requests = {
 };
 
 const Catalog = {
-  getAll: () => requests.get('error/server-error'),
+  getAll: () => requests.get('products'),
   getOne: (id: number) => requests.get(`products/${id}`)
 };
 
@@ -59,15 +58,6 @@ const TestErrors = {
   get404Error: () => requests.get('error/not-found'),
   get500Error: () => requests.get('error/server-error'),
   getValidationError: () => requests.get('error/validation-error'),
-}
-
-const handleError = (
-  error: { status: number, title: string, detail: string },
-  navigate: NavigateFunction
-) => {
-  console.error('Error', error);
-  (error.status === 500 || error.status === 503)
-    && navigate('/server-error', { state: { error: error } });
 }
 
 const Basket = {
@@ -84,7 +74,6 @@ const agent = {
   Catalog,
   Basket,
   TestErrors,
-  handleError
 }
 
 export default agent;

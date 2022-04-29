@@ -17,7 +17,7 @@ const CustomRouter = ({
     location: history.location,
   });
 
-  React.useLayoutEffect(() => history.listen(setState), []);
+  React.useLayoutEffect(() => history.listen(setState), [history]);
 
   return (
     <Router
