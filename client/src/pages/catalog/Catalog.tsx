@@ -1,11 +1,12 @@
-import { Grid, Pagination, Paper, Typography } from "@mui/material";
+import { Grid, Paper } from "@mui/material";
 import { useEffect } from "react";
+import AppPagination from "../../components/AppPagination";
 import CheckboxButtons from "../../components/CheckboxButtons";
 import RadioButtonGroup from "../../components/RadioButtonGroup";
 import LoadingComponent from "../../layout/LoadingComponent";
 import { radiusShadow } from "../../layout/styles/muiStyles";
 import { useAppDispatch, useAppSelector } from "../../store/store";
-import { fetchFiltersAsync, fetchProductsAsync, productSelectors, setProductParams } from "./catalogSlice";
+import { fetchFiltersAsync, fetchProductsAsync, productSelectors, setPageIndex, setProductParams } from "./catalogSlice";
 import ProductList from "./ProductList";
 import ProductSearch from "./ProductSearch";
 
@@ -18,7 +19,7 @@ const sortOptions = [
 
 const Catalog = () => {
   const products = useAppSelector(productSelectors.selectAll);
-  const { productsLoaded, status, filtersLoaded, brands, types, ages, productParams } = useAppSelector(state => state.catalog);
+  const { productsLoaded, status, filtersLoaded, brands, types, ages, productParams, metaData } = useAppSelector(state => state.catalog);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -34,7 +35,7 @@ const Catalog = () => {
 
 
   return (
-    <Grid container spacing={4}>
+    <Grid container columnSpacing={4} rowSpacing={2}>
       <Grid item xs={3}>
         <Paper sx={{ mb: 2, ...radiusShadow }}>
           <ProductSearch />
@@ -63,7 +64,7 @@ const Catalog = () => {
           />
         </Paper>
         <Paper sx={{ mb: 2, p: 2, ...radiusShadow }}>
-        <CheckboxButtons
+          <CheckboxButtons
             label="Age"
             items={ages}
             checked={productParams.ages}
@@ -75,10 +76,13 @@ const Catalog = () => {
         <ProductList products={products} />
       </Grid>
       <Grid item xs={3}></Grid>
-      <Grid item xs={9} sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Typography sx={{ px: 4 }}>Displaying 1-9 of 20 items</Typography>
-        <Pagination count={10} size='large' showFirstButton showLastButton />
-      </Grid>
+      {metaData
+        ? <AppPagination
+          metaData={metaData}
+          onPageChange={(page: number) => dispatch(setPageIndex({ pageIndex: page }))}
+        />
+        : ''
+      }
     </Grid>
   );
 };
