@@ -1,19 +1,19 @@
 import { Button, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
-import { useStoreContext } from "../../context/StoreContext";
 import { btn, radiusShadow } from "../../layout/styles/muiStyles";
+import { useAppSelector } from "../../store/store";
 import BasketItem from "./BasketItem";
 import BasketSummary from "./BasketSummary";
 
 const Basket = () => {
-  const { basket } = useStoreContext();
+  const { basket } = useAppSelector(state => state.basket);
 
   if (!basket?.items || basket?.items.length < 1) 
     return <Typography variant='h3' textAlign={'center'}>Your basket is empty</Typography>
 
   return (
     <>
-      <TableContainer component={Paper} sx={{...radiusShadow, maxHeight: '455px', minWidth: 650}}>
+      <TableContainer component={Paper} sx={{...radiusShadow, maxHeight: '455px', minWidth: 600}}>
         <Table>
           <TableHead>
             <TableRow>
@@ -25,7 +25,7 @@ const Basket = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {basket.items.map(item => (
+            {basket?.items.map(item => (
               <BasketItem key={item.productId} item={item}></BasketItem>
             ))}
           </TableBody>

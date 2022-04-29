@@ -2,31 +2,21 @@ import { CardMedia, CardContent, Typography, CardActions, Grid, Card, Button } f
 import { Product } from "../../models/product";
 import { btn, radiusShadow } from "../../layout/styles/muiStyles";
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import agent from "../../api/agent";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { useStoreContext } from "../../context/StoreContext";
 import { formatCurrency } from "../../util/util";
+import { useAppDispatch, useAppSelector } from "../../store/store";
+import { addBasketItemAsync } from "../basket/basketSlice";
 
 interface Props {
   product: Product;
 }
 
 const ProductCard = ({ product }: Props) => {
-
-  const [loading, setLoading] = useState(false);
-  const {setBasket} = useStoreContext();
-
-  const handleAddItem = () => {
-    setLoading(true);
-    agent.Basket.addItem(product.id, 1)
-      .then(basket => setBasket(basket))
-      .catch(error => console.log(error))
-      .finally(() => setLoading(false));
-  }
+  const {status} = useAppSelector(state => state.basket);
+  const dispatch = useAppDispatch();
 
   return (
-    <Card sx={radiusShadow}>
+    <Card sx={{...radiusShadow, height: '100%', display: 'grid'}}>
       <CardMedia
         sx={{backgroundSize: 'contain'}}
         component="img"
@@ -34,7 +24,7 @@ const ProductCard = ({ product }: Props) => {
         alt="Whisky image"
         title={product.name}
       />
-      <CardContent>
+      <CardContent sx={{alignSelf: 'flex-start'}}>
         <Grid container justifyContent='space-between'>
           <Typography gutterBottom variant="h6">
             {product.name}
@@ -52,11 +42,11 @@ const ProductCard = ({ product }: Props) => {
           }
         </Typography>
       </CardContent>
-      <CardActions>
+      <CardActions sx={{alignSelf: 'flex-end'}}>
         <Grid container justifyContent='space-evenly' sx={{mb: 1}}>
           <LoadingButton 
-            loading={loading} 
-            onClick={handleAddItem}
+            loading={status.includes('pendingAddItem' + product.id)} 
+            onClick={() => dispatch(addBasketItemAsync({productId: product.id}))}
             sx={btn} 
             variant='contained' 
             size="medium"

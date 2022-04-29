@@ -5,7 +5,7 @@ import DarkModeSwitch from "./DarkModeSwitch";
 import NavLinkList from "./NavLinkList";
 import { Link, NavLink } from "react-router-dom";
 import { appBar, link, shoppingCartBtn, toolbar, typography } from "./styles/muiStyles";
-import { useStoreContext } from "../context/StoreContext";
+import { useAppSelector } from "../store/store";
 
 interface Props {
   darkMode: boolean;
@@ -13,7 +13,7 @@ interface Props {
 }
 
 const Header = ({ darkMode, handleThemeChange }: Props) => {
-  const {basket} = useStoreContext();
+  const {basket} = useAppSelector(state => state.basket);
   const basketItemCount = basket?.items.reduce((sum, item) => sum + item.quantity, 0);
 
   const leftLinks = [

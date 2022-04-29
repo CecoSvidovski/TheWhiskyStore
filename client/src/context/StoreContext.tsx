@@ -34,7 +34,7 @@ export const StoreProvider = ({ children }: PropsWithChildren<any>) => {
     if (items[itemIndex].quantity === 0) items.splice(itemIndex, 1);
     setBasket(prevState => {
       return { ...prevState!, items }
-    })
+    });
   }
 
   return (

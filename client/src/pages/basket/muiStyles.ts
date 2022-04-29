@@ -4,7 +4,7 @@ export const basketBtn = (darkMode: boolean) => ({
   margin: '0',
   borderRadius: '50%',
   overflow: 'visible',
-  color: darkMode ? 'inherit' : 'rgba(0, 0, 0, 0.54)',
+  color: darkMode ? 'inherit' : 'rgb(141, 141, 141)',
   minWidth: 'auto',
   backgroundColor: 'transparent',
   ...transitionBtn,
@@ -14,7 +14,7 @@ export const basketBtn = (darkMode: boolean) => ({
 });
 
 export const smallBtn = {
-  padding: '0px',
+  padding: '1px',
 }
 
 export const largeBtn = {

@@ -7,6 +7,7 @@ export const appBar = (darkMode: boolean) => ({
   backgroundColor: (darkMode ? 'rgba(8, 8, 8, 0.8)' : 'rgba(0, 0, 0, 0.8)'),
   backdropFilter: 'saturate(180%) blur(20px)',
   color: '#d6d6d6',
+  minWidth: '800px',
 });
 
 export const toolbar = {

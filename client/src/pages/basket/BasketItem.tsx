@@ -1,13 +1,12 @@
 import { Add, Delete, Remove } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
 import { TableRow, TableCell, Box } from "@mui/material";
-import { useState } from "react";
-import agent from "../../api/agent";
 import { useDarkThemeContext } from "../../context/DarkThemeContext";
-import { useStoreContext } from "../../context/StoreContext";
 import { BasketItem as BasketItemModel } from "../../models/basket";
+import { useAppDispatch, useAppSelector } from "../../store/store";
 import { formatCurrency } from "../../util/util";
 import './BasketItem.css';
+import { removeBasketItemAsync, addBasketItemAsync } from "./basketSlice";
 import { basketBtn, largeBtn, smallBtn } from "./muiStyles";
 
 interface Props {
@@ -16,27 +15,8 @@ interface Props {
 
 const BasketItem = ({ item }: Props) => {
   const { darkMode } = useDarkThemeContext();
-  const { setBasket, removeItem } = useStoreContext();
-  const [status, setStatus] = useState({
-    loading: false,
-    name: ''
-  });
-
-  const handleAddItem = (productId: number, name: string, quantity = 1) => {
-    setStatus({loading: true, name});
-    agent.Basket.addItem(productId, quantity)
-      .then(basket => setBasket(basket))
-      .catch(error => console.log(error))
-      .finally(() => setStatus({loading: false, name}));
-  }
-
-  const handleRemoveItem = (productId: number, name: string, quantity = 1) => {
-    setStatus({loading: true, name});
-    agent.Basket.removeItem(productId, quantity)
-      .then(() => removeItem(productId, quantity))
-      .catch(error => console.log(error))
-      .finally(() => setStatus({loading: false, name}));
-  }
+  const { status } = useAppSelector(state => state.basket);
+  const dispatch = useAppDispatch();
 
   return (
     <TableRow
@@ -52,9 +32,9 @@ const BasketItem = ({ item }: Props) => {
       <TableCell align="right" sx={{ pr: '11.75px' }}>
         <Box display='flex' alignItems='center' justifyContent='flex-end'>
           <LoadingButton
-            loading={status.loading && status.name === 'rem' + item.productId }
+            loading={status === 'pendingRemoveItem' + item.productId}
             size="small"
-            onClick={() => handleRemoveItem(item.productId, 'rem' + item.productId )}
+            onClick={() => dispatch(removeBasketItemAsync({productId: item.productId, quantity: 1}))}
             sx={{ ...basketBtn(darkMode), ...smallBtn }}
           >
             <Remove />
@@ -63,9 +43,9 @@ const BasketItem = ({ item }: Props) => {
             {item.quantity}
           </Box>
           <LoadingButton
-            loading={status.loading && status.name === 'add' + item.productId }
+            loading={status === 'pendingAddItem' + item.productId}
             size="small"
-            onClick={() => handleAddItem(item.productId, 'add' + item.productId )}
+            onClick={() => dispatch(addBasketItemAsync({productId: item.productId}))}
             sx={{ ...basketBtn(darkMode), ...smallBtn }}
           >
             <Add />
@@ -74,9 +54,9 @@ const BasketItem = ({ item }: Props) => {
       </TableCell>
       <TableCell align="right">{formatCurrency(item.price * item.quantity)}</TableCell>
       <TableCell align="right">
-      <LoadingButton
-          loading={status.loading && status.name === 'del' + item.productId }
-          onClick={() => handleRemoveItem(item.productId, 'del' + item.productId , item.quantity)}
+        <LoadingButton
+          loading={status === 'pendingDeleteItem' + item.productId}
+          onClick={() => dispatch(removeBasketItemAsync({productId: item.productId}))}
           sx={{ ...basketBtn(darkMode), ...largeBtn }}
         >
           <Delete />

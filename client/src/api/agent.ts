@@ -7,7 +7,7 @@ axios.defaults.withCredentials = true;
 
 const responseBody = (response: AxiosResponse) => response.data;
 
-const sleep = () => new Promise(resolve => setTimeout(resolve, 500));
+const sleep = () => new Promise(resolve => setTimeout(resolve, 200));
 
 axios.interceptors.response.use(async response => {
   await sleep();
@@ -71,10 +71,12 @@ const handleError = (
 
 const Basket = {
   get: () => requests.get('basket'),
-  addItem: (productId: number, quantity: number) => 
+  addItem: (productId: number, quantity: number) =>
     requests.post(`basket?productId=${productId}&quantity=${quantity}`, {}),
-  removeItem: (productId: number, quantity: number) => 
-    requests.delete(`basket?productId=${productId}&quantity=${quantity}`),
+  removeItem: (productId: number, quantity?: number) =>
+    quantity === undefined
+    ? requests.delete(`basket?productId=${productId}&quantity=${2147483647}`)
+    : requests.delete(`basket?productId=${productId}&quantity=${quantity}`),
 }
 
 const agent = {

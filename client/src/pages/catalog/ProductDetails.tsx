@@ -8,17 +8,18 @@ import { btn } from "../../layout/styles/muiStyles";
 import NotFound from "../../errors/NotFound";
 import LoadingComponent from "../../layout/LoadingComponent";
 import { formatCurrency } from "../../util/util";
-import { useStoreContext } from "../../context/StoreContext";
 import { LoadingButton } from "@mui/lab";
+import { useAppDispatch, useAppSelector } from "../../store/store";
+import { addBasketItemAsync, removeBasketItemAsync } from "../basket/basketSlice";
 
 const ProductDetails = () => {
   const navigate = useNavigate();
-  const { basket, setBasket, removeItem } = useStoreContext();
+  const { basket, status } = useAppSelector(state => state.basket);
+  const dispatch = useAppDispatch();
   const { id } = useParams<{ id: string }>();
   const [product, setProduct] = useState<Product | null>(null)
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
-  const [submitting, setSubmitting] = useState(false);
   const item = basket?.items.find(i => i.productId === product?.id);
 
   useEffect(() => {
@@ -38,22 +39,14 @@ const ProductDetails = () => {
 
   const handleUpdateCart = () => {
     if (!product) return;
-    setSubmitting(true);
+    if (quantity < 0) return;
 
     if (!item || quantity > item.quantity) {
       const updatedQuantity = item ? quantity - item.quantity : quantity;
-      agent.Basket
-        .addItem(product.id, updatedQuantity)
-        .then(basket => setBasket(basket))
-        .catch(error => console.log(error))
-        .finally(() => setSubmitting(false))
+      dispatch(addBasketItemAsync({productId: product.id, quantity: updatedQuantity}));
     } else {
       const updatedQuantity = item.quantity - quantity;
-      agent.Basket
-        .removeItem(product.id, updatedQuantity)
-        .then(() => removeItem(product.id, updatedQuantity))
-        .catch(error => console.log(error))
-        .finally(() => setSubmitting(false))
+      dispatch(removeBasketItemAsync({productId: product.id, quantity: updatedQuantity}));
     }
   }
 
@@ -61,7 +54,7 @@ const ProductDetails = () => {
   if (!product) return <NotFound />;
 
   return (
-    <Grid container spacing={6}>
+    <Grid container spacing={6} sx={{minWidth: '800px'}}>
       <Grid item xs={6}>
         <img src={product.pictureUrl} alt={product.name} style={{ width: '100%', borderRadius: '25px' }} />
       </Grid>
@@ -84,7 +77,7 @@ const ProductDetails = () => {
           <Grid item xs={6}>
             <LoadingButton
               disabled={item?.quantity === quantity || (!item && quantity === 0)}
-              loading={submitting}
+              loading={status.includes('pendingRemoveItem' + item?.productId)}
               onClick={handleUpdateCart}
               sx={{ height: '50.25px', ...btn }}
               size='large'

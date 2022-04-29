@@ -26,22 +26,22 @@ const theme = (paletteType: string) => createTheme({
             maxHeight: '58vh !important'
           },
           '& *::-webkit-scrollbar-thumb': {
-            backgroundColor: '#757575',
+            backgroundColor: paletteType === 'dark' ? '#515151' : '#adadad',
             borderRadius: '20px',
             minHeight: 24,
             border: `5px solid ${paletteType === 'dark' ? '#1e1e1e' : '#fff'}`,
           },
           '& *::-webkit-scrollbar-thumb:focus': {
-            backgroundColor: '#959595',
+            backgroundColor: paletteType === 'dark' ? '#717171' : '#8d8d8d',
           },
           '& *::-webkit-scrollbar-thumb:active': {
-            backgroundColor: '#959595',
+            backgroundColor: paletteType === 'dark' ? '#717171' : '#8d8d8d',
           },
           '& *::-webkit-scrollbar-thumb:hover': {
-            backgroundColor: '#959595',
+            backgroundColor: paletteType === 'dark' ? '#717171' : '#8d8d8d',
           },
           '& *::-webkit-scrollbar-corner': {
-            backgroundColor: '#2b2b2b',
+            backgroundColor: paletteType === 'dark' ? '#1e1e1e' : '#fff',
           },
         },
       },
