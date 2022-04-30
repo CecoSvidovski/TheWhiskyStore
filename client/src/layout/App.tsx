@@ -20,6 +20,8 @@ import agent from "../api/agent";
 import LoadingComponent from "./LoadingComponent";
 import { useDarkThemeContext } from "../context/DarkThemeContext";
 import Checkout from "../pages/checkout/Checkout";
+import Login from "../pages/user/Login";
+import Register from "../pages/user/Register";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -60,6 +62,8 @@ const App = () => {
             <Route path="/server-error" element={<ServerError />} />
             <Route path="/basket" element={<Basket />} />
             <Route path="/checkout" element={<Checkout />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Container>
