@@ -19,18 +19,18 @@ const sortOptions = [
 
 const Catalog = () => {
   const products = useAppSelector(productSelectors.selectAll);
-  const { productsLoaded, status, filtersLoaded, brands, types, ages, productParams, metaData } = useAppSelector(state => state.catalog);
+  const { productsLoaded, filtersLoaded, brands, types, ages, productParams, metaData } = useAppSelector(state => state.catalog);
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    if (!filtersLoaded) dispatch(fetchFiltersAsync());
-  }, [filtersLoaded, dispatch]);
 
   useEffect(() => {
     if (!productsLoaded) dispatch(fetchProductsAsync());
   }, [productsLoaded, dispatch]);
+  
+  useEffect(() => {
+    if (!filtersLoaded) dispatch(fetchFiltersAsync());
+  }, [filtersLoaded, dispatch]);
 
-  if (status.includes('pending')) return <LoadingComponent message='Loading products...' />
+   if (!filtersLoaded) return <LoadingComponent message='Loading products...' />
 
 
 

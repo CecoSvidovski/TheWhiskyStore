@@ -12,19 +12,19 @@ interface Props {
 }
 
 const ProductCard = ({ product }: Props) => {
-  const {status} = useAppSelector(state => state.basket);
+  const { status } = useAppSelector(state => state.basket);
   const dispatch = useAppDispatch();
 
   return (
-    <Card sx={{...radiusShadow, height: '100%', display: 'grid'}}>
+    <Card sx={{ ...radiusShadow, height: '100%', display: 'grid' }}>
       <CardMedia
-        sx={{backgroundSize: 'contain'}}
+        sx={{ backgroundSize: 'contain' }}
         component="img"
         image={product.pictureUrl}
         alt="Whisky image"
         title={product.name}
       />
-      <CardContent sx={{alignSelf: 'flex-start'}}>
+      <CardContent sx={{ alignSelf: 'flex-start' }}>
         <Grid container justifyContent='space-between'>
           <Typography gutterBottom variant="h6">
             {product.name}
@@ -42,22 +42,22 @@ const ProductCard = ({ product }: Props) => {
           }
         </Typography>
       </CardContent>
-      <CardActions sx={{alignSelf: 'flex-end'}}>
-        <Grid container justifyContent='space-evenly' sx={{mb: 1}}>
-          <LoadingButton 
-            loading={status.includes('pendingAddItem' + product.id)} 
-            onClick={() => dispatch(addBasketItemAsync({productId: product.id}))}
-            sx={btn} 
-            variant='contained' 
+      <CardActions sx={{ alignSelf: 'flex-end' }}>
+        <Grid container justifyContent='space-evenly' sx={{ mb: 1 }}>
+          <LoadingButton
+            loading={status.includes('pendingAddItem' + product.id)}
+            onClick={() => dispatch(addBasketItemAsync({ productId: product.id }))}
+            sx={btn}
+            variant='contained'
             size="medium"
           >
             Add to cart
           </LoadingButton>
-          <Button 
-            component={Link} 
-            to={`/catalog/${product.id}`} 
-            sx={btn} 
-            variant='contained' 
+          <Button
+            component={Link}
+            to={`/catalog/${product.id}`}
+            sx={btn}
+            variant='contained'
             size="medium"
           >
             View
