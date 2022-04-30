@@ -14,6 +14,8 @@ public static class ApiServiceCollectionExtension
         services.AddScoped<IStoreDbRepository, StoreDbRepository>();
         services.AddScoped<IProductService, ProductService>();
         services.AddScoped<IBasketService, BasketService>();
+        services.AddScoped<IUserService, UserService>();
+        services.AddScoped<ITokenService, TokenService>();
 
         return services;
     }
